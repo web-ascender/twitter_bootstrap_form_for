@@ -75,7 +75,7 @@ class TwitterBootstrapFormFor::FormBuilder < ActionView::Helpers::FormBuilder
   INPUTS.each do |input|
     define_method input do |attribute, *args, &block|
       options  = args.extract_options!
-      label    = args.first.nil? ? '' : args.shift
+      label    = args.first.nil? || args.first.kind_of?(Array) ? '' : args.shift
       classes  = [ 'input' ]
       classes << ('input-' + options.delete(:add_on).to_s) if options[:add_on]
       
