@@ -45,7 +45,7 @@ class TwitterBootstrapFormFor::FormBuilder < ActionView::Helpers::FormBuilder
   # inside of here, and will not look correct unless they are.
   #
   def toggles(label = nil, &block)
-    template.content_tag(:div, :class => "clearfix") do
+    template.content_tag(:div, :class => 'clearfix') do
       template.concat template.content_tag(:label, label)
       template.concat template.content_tag(:div, :class => "input") {
         template.content_tag(:ul, :class => "inputs-list") { block.call }
@@ -155,7 +155,7 @@ class TwitterBootstrapFormFor::FormBuilder < ActionView::Helpers::FormBuilder
   # This merges any +classes+ passed in.
   #
   def _wrapper_classes(attribute, *classes)
-    classes.tap do |klasses|
+    classes.compact.tap do |klasses|
       klasses.push 'error' if self.errors_on?(attribute)
     end.join(' ')
   end
