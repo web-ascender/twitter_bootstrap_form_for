@@ -103,16 +103,22 @@ class TwitterBootstrapFormFor::FormBuilder < ActionView::Helpers::FormBuilder
   end
 
   TOGGLES.each do |toggle|
-    define_method toggle do |attribute, *args, &block|
-      label       = args.first.nil? ? '' : args.shift
-      target      = self.object_name.to_s + '_' + attribute.to_s
-      label_attrs = toggle == :check_box ? { :for => target } : {}
+      define_method toggle do |attribute, *args, &block|
+        label       = args.first.nil? ? '' : args.shift
+        target      = self.object_name.to_s + '_' + attribute.to_s
+        label_attrs = case toggle
+                      when :check_box
+                        { :for => target, :class => :checkbox }
+                      when :radio_button
+                        { :class => :radio}
+                      else
+                        {}
+                      end
 
-      template.content_tag(:li) do
         template.concat template.content_tag(:label, label_attrs) {
           template.concat super(attribute, *args)
           template.concat ' ' # give the input and span some room
-          template.concat template.content_tag(:span, label)
+          template.concat label
         }
         if toggle == :check_box
           template.concat template.content_tag(:div, :class => "clearfix error") {
