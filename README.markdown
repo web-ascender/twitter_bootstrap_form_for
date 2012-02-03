@@ -48,6 +48,15 @@ Just Rails. But you were going to use that anyway, weren't you?
       #{inline.text_field :interest_2, :class => 'small'}, and
       #{inline.text_field :interest_3, :class => 'small'}
 
+    / select fields now have the second parameter as a label
+    = user.date_select :born_on, 'Born on', {}, :class => 'small'
+
+    / inline inputs are not automatically labeled
+    = user.inline 'Interests' do |inline|
+      #{inline.text_field :interest_1, :class => 'small'},
+      #{inline.text_field :interest_2, :class => 'small'}, and
+      #{inline.text_field :interest_3, :class => 'small'}
+
     / group of radio buttons
     = user.toggles 'Email Preferences' do
       = user.radio_button :email, 'HTML Email', :html, :checked => true
@@ -72,6 +81,15 @@ That code produces the following output, with no custom stylesheets.
 That's it. All of the Rails field helpers you know and love work just like
 their normal FormBuilder counterparts, but with minor extensions to expose
 the functionality anticipated by Twitter Bootstrap.
+
+## Form Helper Changes ##
+
+The changes this `FormBuilder` effects to the existing Rails form helpers is
+simple:
+
+  * the second parameter becomes the label (pass false to disable, nil for default)
+  * the last options hash accepts an `:add_on` key
+  * if a block is passed, the HTML it outputs is placed immediately after the input
 
 ## Known Bugs ##
 
