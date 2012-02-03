@@ -126,7 +126,6 @@ class TwitterBootstrapFormFor::FormBuilder < ActionView::Helpers::FormBuilder
           } if errors_on?(attribute)
         end
       end
-    end
   end
 
   protected
