@@ -89,14 +89,16 @@ class TwitterBootstrapFormFor::FormBuilder < ActionView::Helpers::FormBuilder
       options  = args.extract_options!
       label    = args.first.nil? || args.first.kind_of?(Array) ? '' : args.shift
       classes  = [ 'controls' ]
-      classes << ('input-' + options.delete(:add_on).to_s) if options[:add_on]
+      add_on = options.delete(:add_on)
+      classes << ('input-' + add_on.to_s) if add_on
 
       self.div_wrapper(attribute) do
         template.concat self.label(attribute, label) if label
         template.concat template.content_tag(:div, :class => classes.join(' ')) {
+          block.call if block.present? && add_on == 'prepend'
           template.concat super(attribute, *(args << options))
           template.concat error_span(attribute)
-          block.call if block.present?
+          block.call if block.present? && add_on != 'prepend'
         }
       end
     end
