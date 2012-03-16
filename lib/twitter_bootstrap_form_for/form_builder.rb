@@ -127,6 +127,7 @@ class TwitterBootstrapFormFor::FormBuilder < ActionView::Helpers::FormBuilder
             template.concat error_span(attribute)
           } if errors_on?(attribute)
         end
+        nil
       end
   end
 
